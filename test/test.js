@@ -199,6 +199,196 @@ describe( 'POST /api/make (create)', function() {
     });
   });
 
+// expected info
+
+  it('should create a new Make if minimum expected info is received', function (done){
+
+    done();
+  });
+
+
+  it('should create a new Make if maximum expected info is received', function (done){
+
+    done();
+  });
+
+
+
+
+// url
+
+  it('should error if url is missing', function (done){
+
+    done();
+  });
+
+
+  it('should error if url is not a string', function (done){
+
+    done();
+  });
+
+
+  it('should error if url is not a valid URL', function (done){
+
+    done();
+  });
+
+// content type
+
+
+  it('should error if contentType value is not present', function (done){
+
+    done();
+  });
+
+  it('should error if contentType is not STRING', function (done){
+
+    done();
+  });
+
+  it('should error if contentType is not recognized', function (done){
+
+    done();
+  });
+
+
+// title 
+
+  it('should error if title is not present', function (done){
+
+    done();
+  });
+
+  it('should error if title is not STRING', function (done){
+
+    done();
+  });
+
+  it('should error if title contains a bad word', function (done){
+
+    done();
+  });
+
+
+  it('should error if title is too long', function (done){
+
+    done();
+  });
+
+    it('should error if title is too short', function (done){
+
+    done();
+  });
+
+
+  it('should error if title is an unacceptable character', function (done){
+
+    done();
+  });
+
+// email
+
+  it('should error if email is not present', function (done){
+
+    done();
+  });
+
+  it('should error if email is not STRING', function (done){
+
+    done();
+  });
+
+  it('should error if email contains a bad word', function (done){
+
+    done();
+  });
+
+
+  it('should error if email format is not valid', function (done){
+
+    done();
+  });
+  
+  // Return
+
+  it('should (do what?) if the retval is correctly an error object', function (done){
+
+    done();
+  });
+
+  it('should (do what?) if the retval is an object that has all the properties of the Make', function (done){
+
+    done();
+  });
+
+  it('should error if the retval is NOT an object that has all properties of the Make', function (done){
+
+    done();
+  });
+
+// returned email
+
+  it('should error if the retval object`s email is not present', function (done){
+
+    done();
+  });
+
+  it('should error if the retval object`s email is not STRING', function (done){
+
+    done();
+  });
+
+  it('should error if  the retval object`s email contains a bad word', function (done){
+
+    done();
+  });
+
+
+  it('should error if  the retval object`s email format is not valid', function (done){
+
+    done();
+  });
+
+  //returned title
+
+  it('should error if the retval object`s title is not present', function (done){
+
+    done();
+  });
+
+  it('should error if the retval object has more than 2 attributes', function (done){
+
+    done();
+  });
+
+  it('should error if the retval object`s title is not STRING', function (done){
+
+    done();
+  });
+
+  it('should error if the retval object`s title contains a bad word', function (done){
+
+    done();
+  });
+
+
+  it('should error if the retval object`s title is too long', function (done){
+
+    done();
+  });
+
+    it('should error if the retval object`s title is too short', function (done){
+
+    done();
+  });
+
+
+  it('should error if the retval object`s title is an unacceptable character', function (done){
+
+    done();
+  });
+
 });
 
 
@@ -210,14 +400,12 @@ describe('POST /api/make/:id', function(){
   it('should return an object with all the properties of the Make', function(done){
 
     done();
-
   });
 
   // why happy day
   it('', function (done){
 
     done();
-
   });
 
 

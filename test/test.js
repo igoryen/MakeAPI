@@ -8,6 +8,8 @@ var assert = require( 'assert' ),
     port = 3000,
     hostAuth = 'http://travis:travis@localhost:' + port,
     hostNoAuth = 'http://localhost:' + port,
+    illegalChars = "` ! @ # $ % ^ & * ( ) + = ; : ' \" , < . > / ?".split( " " );
+
     // One admin user, one non-admin
     admin = {
       email: "admin@webfaker.org",
@@ -18,8 +20,12 @@ var assert = require( 'assert' ),
       email: "notadmin@webfaker.org",
       username: "notadmin",
       fullName: "Not Admin",
-      isAdmin: false
+      isAdmin: false,
     };
+
+
+    // Adding a space to the illegalChars list
+    illegalChars.push(" ");
 
 /**
  * Server functions
@@ -201,23 +207,44 @@ describe( 'POST /api/make (create)', function() {
 
 // expected info
 
-  it('should create a new Make if minimum expected info is received', function (done){
+  it('should create a new Make if (name:, id:) are passed', function (done){
 
     done();
   });
 
 
-  it('should create a new Make if maximum expected info is received', function (done){
+  it('should create a new Make if (name:, id:, email:) are passed', function (done){
 
     done();
   });
+
+
+  it('should create a new Make if (name:, id:, url:) are passed', function (done){
+
+    done();
+  });
+
+  it('should create a new Make if (name:, id:, email, url:) are passed', function (done){
+
+    done();
+  });
+
+
+
+  it('should error if expected info is NOT received', function (done){
+
+    done();
+  });
+
+
+
 
 
 
 
 // url
 
-  it('should error if url is missing', function (done){
+  it('should error if url is not present', function (done){
 
     done();
   });
@@ -271,21 +298,33 @@ describe( 'POST /api/make (create)', function() {
   });
 
 
-  it('should error if title is too long', function (done){
+  it('should error if title is longer than X chars', function (done){
 
     done();
   });
 
-    it('should error if title is too short', function (done){
+    it('should error if title is shorter than X chars', function (done){
 
     done();
   });
 
+  // Test title for 404 on illegal characters
+  illegalChars.forEach( function( badString ) { //?
+    it( 'should error when title contains the illegal character "' + badString + '"', function( done ) {
+      var user = unique();
+      user.username = badString;
 
-  it('should error if title is an unacceptable character', function (done){
-
-    done();
+      apiHelper( 'post', api, 404, user, done );
+    });
   });
+
+
+
+
+
+
+
+
 
 // email
 
@@ -326,6 +365,12 @@ describe( 'POST /api/make (create)', function() {
 
     done();
   });
+
+  it('should error if the retval is null', function (done){
+
+    done();
+  });
+
 
 // returned email
 
@@ -394,30 +439,28 @@ describe( 'POST /api/make (create)', function() {
 
 
 
-describe('POST /api/make/:id', function(){
+describe('PUT /api/make/:id', function(){
 
-// happy day
-  it('should return an object with all the properties of the Make', function(done){
-
-    done();
-  });
-
-  // why happy day
-  it('', function (done){
+// 
+  it('should update a Make if all the expected info is received', function(done){
 
     done();
   });
 
+  it('should err if the expected into is not received', function(done){
 
-  // sad day
-  it('', function (done){
+    done();
+  });
+
+
+  it('should error if expected maker type is not STRING', function(done){
 
     done();
     
   });
 
   // why sad day
-  it('', function (done){
+  it('', function(done){
 
     done();
     

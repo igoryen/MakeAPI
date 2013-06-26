@@ -494,10 +494,8 @@
 // I don't understand how to check for errors in make: here (see the link)
  // should the condition be "should update the Make is make: is present"?
     // https://gist.github.com/mjschranz/e37e7429373861a3d11e#file-make_model-L144
-    
-    it('should update a Make if make: is ??', function(done){
- 
-    it('should update a Make if make: is ??????????', function(done){
+     
+    it('should update a Make if make: is present', function(done){
       done();
     });
     
@@ -508,32 +506,82 @@
   //------------------------------------------------------
   describe('DELETE /api/make/:id', function(){
   
-  // happy day
-    it('should return an object with all the properties of the Make', function(done){
-  
+    // call parameter 
+
+    it('should delete a Make if the call parameter id: is present', function(done){
       done();
-  
+    }); 
+
+    
+    it('should error if id: is not present', function(done){
+      done();
+    });
+
+
+   // expected info
+
+   // return
+
+    it('should delete a Make if  an error object has email: and title:', function(done){
+      done();
+    });
+
+
+  // return's email
+    it('should error if email: is not present', function (done){
+      done();
+    });
+
+    it('should error if email: is not a STRING', function (done){
+      done();
     });
   
-    // why happy day
-    it('', function (done){
-  
+
+      it('should error if email: contains a bad word', function (done){
       done();
-  
+    });
+
+          it('should error if email: format is not valid', function (done){
+      done();
+    });
+
+              it('should error if email: is too long (> x chars)', function (done){
+      done();
     });
   
-  
-    // sad day
-    it('', function (done){
-  
+    // return's title
+
+      it('should error if title: is not present', function (done){
       done();
-      
+    });
+
+    it('should error if title: is not a STRING', function (done){
+      done();
     });
   
-    // why sad day
-    it('', function (done){
-  
+
+      it('should error if title: contains a bad word', function (done){
       done();
-      
     });
+
+          it('should error if title: is too long (>x chars)', function (done){
+      done();
+    });
+
+              it('should error if title: is too short (<x chars)', function (done){
+      done();
+    });
+
+    // Test title for  illegal characters
+    illegalChars.forEach( function( badString ) { //?
+      it( 'should error if the retval object`s title: contains the illegal character "' + badString + '"', function( done ) {
+        var user = unique();
+        user.username = badString;
+  
+        apiHelper( 'post', api, 404, user, done );
+      });
+    }); // end of illegalChars.forEach()
+  
+
+
   });

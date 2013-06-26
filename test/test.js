@@ -291,7 +291,20 @@
 
     done();
   });
-  
+  /*
+
+  // NOTES: 
+  // 1) not sure if there's a need to validate the title length 
+  // since it would have already been validated in the tool where it was made
+  // 2) based on the above, shouldn't there be a really limited list
+  // of things we should test here, since so many things would 
+  // already have been ok'd by the tool where a Make is made.
+  // 3) Shouldn't these tests simply test for presence/absence of things only
+  // and assume that if a thing is present then its form has already
+  // been approved where it came from?
+  // 4) don't the tools themselves validate the input
+
+
     // too long
     it('should error if title: is longer than X chars', function (done){
 
@@ -302,7 +315,7 @@
 
     done();
   });
-  
+  */
     // Test title for 404 on illegal characters
     illegalChars.forEach( function( badString ) { //?
       it( 'should error when title: contains the illegal character "' + badString + '"', function( done ) {

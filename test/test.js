@@ -205,89 +205,89 @@
       });
     });
     
-  // if call parameters are [erroneously] present
+  // POST: if call parameters are [erroneously] present
   it('should error if call parameters are erroneously present', function(done){
     done();
   });
   
   
-  // for expected info
+  // for POST/expected info
   // if expected info is not received
-  it ('should error if (name:, id:) are not passed', function(done){
+  it ('should error if mimimum fields are not passed', function(done){
     done();
   });
   
-  it('should create a new Make if (name:, id:) are passed', function (done){   
-    done();
-  });
-  
-  
-  it('should create a new Make if (name:, id:, email:) are passed', function (done){
+  it('should create a new Make if minimum fields are passed', function (done){   
     done();
   });
   
   
-  it('should create a new Make if (name:, id:, url:) are passed', function (done){
+  it('should create a new Make if minimum fields + email are passed', function (done){
     done();
   });
   
-  it('should create a new Make if (name:, id:, email, url:) are passed', function (done){
+  
+  it('should create a new Make if minimum fields + url are passed', function (done){
+    done();
+  });
+  
+  it('should create a new Make if minimum fields + url + email are passed', function (done){
     done();
   });
   
   
   //------------------------------------------------------
-  // for url:
+  // for POST url:
   
-  it('should error if url: is not present', function (done){
+  it('should error if url is not present', function (done){
 
     done();
   });
   
   
-  it('should error if url: is not a string', function (done){
+  it('should error if url is not a string', function (done){
 
     done();
   });
   
   
-  it('should error if url: is not a valid URL', function (done){
+  it('should error if url is not a valid URL', function (done){
 
     done();
   });
   //------------------------------------------------------
-  // for content type
+  // for POST content type
   
   
-  it('should error if contentType value is not present', function (done){
+  it('should error if contentType is not present', function (done){
 
     done();
   });
   
-  it('should error if contentType value is not STRING', function (done){
+  it('should error if contentType is not STRING', function (done){
 
     done();
   });
   
-  it('should error if contentType value is not recognized', function (done){
+  it('should error if contentType is not recognized', function (done){
 
     done();
   });
   
   //------------------------------------------------------
-  // title 
+  // for POST title 
   
-  it('should error if title: is not present', function (done){
+  it('should error if title is not present', function (done){
 
     done();
   });
   
-  it('should error if title: is not a STRING', function (done){
+  it('should error if title is not a STRING', function (done){
 
     done();
   });
   
-  it('should error if title: contains a bad word', function (done){
+  it('should error if title contains a bad word', function (done){
 
     done();
   });
@@ -302,15 +302,15 @@
   // 3) Shouldn't these tests simply test for presence/absence of things only
   // and assume that if a thing is present then its form has already
   // been approved where it came from?
-  // 4) don't the tools themselves validate the input
+  // 4) don't the tools themselves validate the input?
 
 
-    // too long
+    
     it('should error if title: is longer than X chars', function (done){
 
       done();
     });
-  // too short
+  
   it('should error if title: is shorter than X chars', function (done){
 
     done();
@@ -327,11 +327,19 @@
     });
 
   //------------------------------------------------------
-  // email
+  // for POST email
   
   it('should error if email: is not present', function (done){
 
-    done();
+    var retVal = callServer({
+     url: "www.blah.com",
+     contentType: "text/plaintext",
+     title: "blah"
+   } );
+
+    assert.equal( retVal.hasOwnProperty(error:, true )
+
+        done();
   });
   
   it('should error if email: is not STRING', function (done){
@@ -351,10 +359,10 @@
   });
 
     //------------------------------------------------------
-    // Return
+    // for POST return
 
 
-  it('should error if the return value is not present', function (done){ // same as null?
+  it('should error if the return  is not present', function (done){ // same as null?
     done();
   });
   

@@ -306,19 +306,19 @@
 
 
     
-    it('should error if title: is longer than X chars', function (done){
+    it('should error if title is longer than X chars', function (done){
 
       done();
     });
   
-  it('should error if title: is shorter than X chars', function (done){
+  it('should error if title is shorter than X chars', function (done){
 
     done();
   });
   */
     // Test title for 404 on illegal characters
     illegalChars.forEach( function( badString ) { //?
-      it( 'should error when title: contains the illegal character "' + badString + '"', function( done ) {
+      it( 'should error when title contains the illegal character "' + badString + '"', function( done ) {
         var user = unique();
         user.username = badString;
 
@@ -329,7 +329,7 @@
   //------------------------------------------------------
   // for POST email
   
-  it('should error if email: is not present', function (done){
+  it('should error if email is not present', function (done){
 
     var retVal = callServer({
      url: "www.blah.com",
@@ -342,18 +342,18 @@
         done();
   });
   
-  it('should error if email: is not STRING', function (done){
+  it('should error if email is not STRING', function (done){
 
     done();
   });
   
-  it('should error if email: contains a bad word', function (done){
+  it('should error if email contains a bad word', function (done){
 
     done();
   });
   
   
-  it('should error if email: format is not valid', function (done){
+  it('should error if email format is not valid', function (done){
 
     done();
   });
@@ -371,12 +371,12 @@
     done();
   });
   
-  it('should (do what?) if the retval is an object with the email: property', function (done){
+  it('should (do what?) if the retval is an object with the email property', function (done){
 
     done();
   });
   
-  it('should (do what?) if the retval is an object with the title: property', function (done){
+  it('should (do what?) if the retval is an object with the title property', function (done){
 
     done();
   });
@@ -384,23 +384,23 @@
   //------------------------------------------------------
   // returned email
   
-  it('should error if the retval object`s email: property is NOT present', function (done){
+  it('should error if the retval object`s email property is NOT present', function (done){
     done();
   });
   
-  it('should error if the retval object`s email: property is NOT a STRING', function (done){
+  it('should error if the retval object`s email property is NOT a STRING', function (done){
     done();
   });
 
-  it('should error if the retval object`s email: property contains a bad word', function (done){
+  it('should error if the retval object`s email property contains a bad word', function (done){
     done();
   });
 
-  it('should error if the retval object`s email: property is of wrong format', function (done){
+  it('should error if the retval object`s email property is of wrong format', function (done){
     done();
   });
 
-  it('should error if the retval object`s email: property is too long (> X chars)', function (done){
+  it('should error if the retval object`s email property is too long (> X chars)', function (done){
     done();
   });
   it('should error if the retval is null', function (done){
@@ -410,30 +410,30 @@
   
   //returned title
   
-  it('should error if the retval object`s title: is not present', function (done){
+  it('should error if the retval object`s title is not present', function (done){
 
     done();
   });
   
-  it('should error if the retval object`s title: is not a STRING', function (done){
+  it('should error if the retval object`s title is not a STRING', function (done){
     done();
   });
 
-  it('should error if the retval object`s title: contains a bad word', function (done){
+  it('should error if the retval object`s title contains a bad word', function (done){
     done();
   });
-  it('should error if the retval object`s title: is too long (> X chars)', function (done){
+  it('should error if the retval object`s title is too long (> X chars)', function (done){
     done();
   });
 
 
-  it('should error if the retval object`s title: property is too short (< X chars)', function (done){
+  it('should error if the retval object`s title property is too short (< X chars)', function (done){
     done();
   });
 
     // Test title for 404 on illegal characters
     illegalChars.forEach( function( badString ) { //?
-      it( 'should error if the retval object`s title: contains the illegal character "' + badString + '"', function( done ) {
+      it( 'should error if the retval object`s title contains the illegal character "' + badString + '"', function( done ) {
         var user = unique();
         user.username = badString;
 
@@ -450,53 +450,53 @@
 
   // call parameter is id:
   
-  it('should update a Make if the call parameter id: has been passed', function(done){
+  it('should update a Make if the call parameter id has been passed', function(done){
     done();
   });
   
-  it('should error if the call parameter id: is not present', function(done){
+  it('should error if the call parameter id is not present', function(done){
     done();
   });
   
-  it('should error if the call parameter id: format is wrong', function(done){
+  it('should error if the call parameter id format is wrong', function(done){
     done();
   });
 
-  // expected info is maker: and make:
+  // expected info is maker and make:
   
-  it('should update a Make if maker: and make: have been passed', function(done){
+  it('should update a Make if maker and make have been passed', function(done){
     done();
   });
   
-  it('should err if make: and maker: have not been passed', function(done){
+  it('should err if make and maker have not been passed', function(done){
     done();
   });
   
-  // 1) make: conditions 
+  // 1) make conditions 
   
-  it('should error if maker: is not present', function(done){
+  it('should error if maker is not present', function(done){
     done();
   });
   
-  it('should error if maker: is not a STRING', function(done){
-    done();
-  });
-
-  it('should error if maker: contains a bad word', function(done){
+  it('should error if maker is not a STRING', function(done){
     done();
   });
 
-  it('should error if maker: is too long (> x chars)', function(done){
+  it('should error if maker contains a bad word', function(done){
+    done();
+  });
+
+  it('should error if maker is too long (> x chars)', function(done){
     done();
   });
   
-  it('should error if maker: is too short (< x chars)', function(done){
+  it('should error if maker is too short (< x chars)', function(done){
     done();
   });
   
     // Test title for 404 on illegal characters
     illegalChars.forEach( function( badString ) { //?
-      it( 'should error if the retval object`s title: contains the illegal character "' + badString + '"', function( done ) {
+      it( 'should error if the retval object`s title contains the illegal character "' + badString + '"', function( done ) {
         var user = unique();
         user.username = badString;
 
@@ -505,14 +505,14 @@
     }); // end of illegalChars.forEach()
 
 
-    // 2) make: conditions
+    // 2) make conditions
    // I don't understand how to check for errors in make:
 
-// I don't understand how to check for errors in make: here (see the link)
- // should the condition be "should update the Make is make: is present"?
+// I don't understand how to check for errors in make here (see the link)
+ // should the condition be "should update the Make is make is present"?
     // https://gist.github.com/mjschranz/e37e7429373861a3d11e#file-make_model-L144
 
-    it('should update a Make if make: is present', function(done){
+    it('should update a Make if make is present', function(done){
       done();
     });
     
@@ -525,12 +525,12 @@
 
     // call parameter 
 
-    it('should delete a Make if the call parameter id: is present', function(done){
+    it('should delete a Make if the call parameter id is present', function(done){
       done();
     }); 
 
     
-    it('should error if id: is not present', function(done){
+    it('should error if id is not present', function(done){
       done();
     });
 
@@ -539,59 +539,59 @@
 
    // return
 
-   it('should delete a Make if  an error object has email: and title:', function(done){
+   it('should delete a Make if  an error object has email and title:', function(done){
     done();
   });
 
 
   // return's email
-  it('should error if email: is not present', function (done){
+  it('should error if email is not present', function (done){
     done();
   });
 
-  it('should error if email: is not a STRING', function (done){
+  it('should error if email is not a STRING', function (done){
     done();
   });
   
 
-  it('should error if email: contains a bad word', function (done){
+  it('should error if email contains a bad word', function (done){
     done();
   });
 
-  it('should error if email: format is not valid', function (done){
+  it('should error if email format is not valid', function (done){
     done();
   });
 
-  it('should error if email: is too long (> x chars)', function (done){
+  it('should error if email is too long (> x chars)', function (done){
     done();
   });
   
     // return's title
 
-    it('should error if title: is not present', function (done){
+    it('should error if title is not present', function (done){
       done();
     });
 
-    it('should error if title: is not a STRING', function (done){
+    it('should error if title is not a STRING', function (done){
       done();
     });
 
 
-    it('should error if title: contains a bad word', function (done){
+    it('should error if title contains a bad word', function (done){
       done();
     });
 
-    it('should error if title: is too long (>x chars)', function (done){
+    it('should error if title is too long (>x chars)', function (done){
       done();
     });
 
-    it('should error if title: is too short (<x chars)', function (done){
+    it('should error if title is too short (<x chars)', function (done){
       done();
     });
 
     // Test title for  illegal characters
     illegalChars.forEach( function( badString ) { //?
-      it( 'should error if the retval object`s title: contains the illegal character "' + badString + '"', function( done ) {
+      it( 'should error if the retval object`s title contains the illegal character "' + badString + '"', function( done ) {
         var user = unique();
         user.username = badString;
 

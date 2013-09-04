@@ -8,87 +8,90 @@ var assert = require( 'assert' ),
     port = 3000,
     hostAuth = 'http://travis:travis@localhost:' + port,     
     hostNoAuth = 'http://localhost:' + port,
-    illegalChars = "` ! @ # $ % ^ & * ( ) + = ; : ' \" , < . > / ?".split( " " );     console.log('11 hostNoAuth .......... '+ hostNoAuth);
+    illegalChars = "` ! @ # $ % ^ & * ( ) + = ; : ' \" , < . > / ?".split( " " );     //console.log('11 hostNoAuth .......... '+ hostNoAuth);
     
       // One admin user, one non-admin
       admin = {
         email: "admin@webfaker.org",
         username: "admin",
         fullName: "An Admin",
-        isAdmin: true },
+        isAdmin: true 
+      },
       notAdmin = {
-          email: "notadmin@webfaker.org",
-          username: "notadmin",
-          fullName: "Not Admin",
-          isAdmin: false,
-      };                                                          console.log('24 admin .......... '+ admin); console.log('24 notAdmin .......... '+ notAdmin);
+        email: "notadmin@webfaker.org",
+        username: "notadmin",
+        fullName: "Not Admin",
+        isAdmin: false,
+      };                                                  //console.log('24 admin .......... '+ admin); console.log('24 notAdmin .......... '+ notAdmin);
 
 
       // Ang a space to the illegalChars list
       illegalChars.push(" ");
-                                                          console.log('29 before startLoginServer()');
+                                                          console.log('before A');
   /**
    * Server functions
-   */
-   function startLoginServer( done ) {                    console.log('33 in startLoginServer()');
-    var loginPort = 3001;                                 console.log('34 loginPort .......... '+ loginPort);
-                                                          console.log('35 before createUser()');
-    function createUser( user, callback ) {                console.log('36 in createUser(), user .......... '+ user+', callback .......... '+ 'callback');
+   */// A
+  function startLoginServer( done ) {                     console.log('A');
+    var loginPort = 3001;                                 //console.log('A loginPort .......... '+ loginPort);
+                                                          console.log('before AA');
+    function createUser( user, callback ) {               console.log('AA user .......... '+ user);
       request({
         url: "http://localhost:" + loginPort + "/user",
         method: 'post',
         json: user
-      }, function( err, res, body ) {                     console.log('41 in createUser()');
-        assert.ok( !err );                                console.log('42 res.statusCode .......... '+ res.statusCode);
+      }, function( err, res, body ) {                     console.log('AA callback');
+        assert.ok( !err );                                if (err) console.log("AA err"); else console.log("AA no err"); console.log('AA res.statusCode .......... '+ res.statusCode);
         assert.equal( res.statusCode, 200 );
         callback();
-      });                                                 //console.log('45 res .......... '+ res);
-    }                                                   
-                                                        if (request) console.log('47 after create user.');
-    loginChild = fork( 'login.webmaker.org/app.js', [], { env: {
+      });                                                 //console.log('AA res .......... '+ res);
+    }  // createUser()                                                  
+                                                          if (request) console.log('before AB, request is true'); 
+    loginChild = fork( 'login.webmaker.org/app.js', [], { env: { // the 3rd par is the environment key-value pairs
       PORT: loginPort,
       HOSTNAME: "http://localhost",
       MONGO_URL: "mongodb://localhost:27017/local_webmakers",
-      SESSION_SECRET: "secret",
-      ALLOWED_USERS: "travis:travis",
+      SESSION_SECRET: "I sometimes feed lunch meat to my neighbour's \"vegan\" dog.",
+      ALLOWED_USERS: "testuser:password",
       ALLOWED_DOMAINS: "http://localhost:3000 http://localhost:3001"
     }});
-                                                         console.log('56 loginChild .......... '+ loginChild); 
-    loginChild.on( "message", function( msg ) {          console.log('57 msg .......... '+ msg);
-      if( msg === "Started" ) {                          console.log('58 admin .......... '+ admin);
+                                                         console.log('before AC .......... '+ loginChild); //JSON.stringify(loginChild);  
+    loginChild.on( "message", function( msg ) {          console.log('AC msg .......... '+ msg);    // like 'onclick': loginChild listens for the 'event' message
+      if( msg === "Started" ) {                          console.log('AC admin .......... '+ admin);
         // Create a few logins
-        createUser( admin, function() {                  //console.log('60 creatingUser()');
-          createUser( notAdmin, done );
-        });                                              //console.log('62 in if()');
-      }                                                  //console.log('63 exited if()');
-    });
-  }
-                                                            console.log('66 before startServer()');
-  function startServer( done ) {                            console.log('67 in startServer()');
-    startLoginServer( function() {                           console.log('68 in startLoginServer');   
+        createUser( admin, function() {                  console.log('AC createUser()');
+          createUser( notAdmin, done );                  console.log("AC created 2 users");
+        });                                              //console.log('AC in if()');
+      }                                                  //console.log('AC exited if()');
+    }); // loginChild.on()
+  } // startLoginServer()
+                         
+
+                                                            console.log('before B');
+  function startServer( done ) {                            console.log('B');
+    startLoginServer( function() {                          console.log('BA');   
       // Spin-up the MakeAPI server as a child process
-      child = fork( 'server.js', null, {} );                   console.log('70 child .......... '+ child);
-      child.on( 'message', function( msg ) {                   console.log('71 msg .......... '+ msg);
+      child = fork( 'server.js', null, {} );                console.log('BA child .......... '+ child);
+      child.on( 'message', function( msg ) {                console.log('BA msg .......... '+ msg);
         if ( msg === 'Started' ) {
           done();
         }
       });
     });
-  }
-                                                              console.log('78 before stopServer()');
-  function stopServer( done ) {                               console.log('79 in stopServer()');
+  } // startServer()
+                                                            console.log('before C');
+  function stopServer( done ) {                             console.log('C');
     loginChild.kill();
     child.kill();
     done();
   }
-  
+                                                            //console.log('84 --------- over to the API functions: 89-111');
   /**
    * Api functions
    */
-                                                              console.log('88 before apiHelper()');
-   function apiHelper( verb, uri, httpCode, data, callback, assertions ) {    console.log('89 in apiHelper()');
+                                                              console.log('before D');
+   function apiHelper( verb, uri, httpCode, data, callback, assertions ) {    console.log('89 D');
     // Parameter handling
-    if ( typeof( data ) === "function" ) {                    console.log('91 data .......... '+ data);
+    if ( typeof( data ) === "function" ) {                    console.log('D data .......... '+ data);
       callback = data;
       data = {};
     } else {
@@ -113,8 +116,8 @@ var assert = require( 'assert' ),
   /**
    * User functions
    */
-                                                             console.log('116 before unique()');
-   function unique( options ) {                              console.log('117 in unique()');
+                                                             console.log('before E');
+   function unique( options ) {                              console.log('E');
     options = options || {};
     var u = ( ++now ).toString( 36 ),
     user = options.user || admin,
@@ -136,34 +139,34 @@ var assert = require( 'assert' ),
       }
     };
   }
-                                                            console.log('139 proceeding to unit tests');
+                                                            console.log('before F');
   /**
    * Unit tests
    */
-   // A
+   // F
   describe( 'POST /api/make (create)', function() {
-                                                           console.log('145 in describe(POST /api/make (create))');
-    var api = hostAuth + '/api/make';                      console.log('146 hostAuth .......... '+ hostAuth); console.log('146 api .......... '+ api);
+                                                           console.log('F');
+    var api = hostAuth + '/api/make';                      console.log('before FA hostAuth .......... '+ hostAuth); console.log('before FA api .......... '+ api);
 
-    before( function( done ) {                             console.log('148 in before()');
+    before( function( done ) {                             console.log('FA');
       startServer( done );      
-    });                                                    console.log('150 between before() and after()');
+    });                                                    console.log('before FB');
 
     after( function( done ) {
-      stopServer( done );                                  console.log('153 in after()');
-    });                                                    console.log('154 after after(), entering it()');
-    // A1
+      stopServer( done );                                  console.log('FB');
+    });                                                    console.log('before FC');
+    // FC
     it( 'should create a new make', function( done ) {
-      var m = unique();                                    console.log('157 in A1');
+      var m = unique();                                    console.log('FC'); // create a unique make
 
-      apiHelper( 'post', api, 200, m, function( err, res, body ) {
+      apiHelper( 'post', api, 200, m, function( err, res, body ) {    console.log('FC-D'); // pass verb 'post', module 'api', .., data 'm', callback 
         // Simple test, needs to be expanded for other properties we expect
-        assert.equal( body.url, m.make.url );
+        assert.equal( body.url, m.make.url );              console.log("------------------------apiHelper");
         done();
       });
     });
-                                                          console.log('165 between it(A1) and it(A2)');
-    // A2
+                                                           console.log('before FD');
+    // FD
     it( 'make-api.js - id', function( done ) {
       var m = unique();
 
@@ -183,12 +186,12 @@ var assert = require( 'assert' ),
         });
       });
     });
-                                                                           console.log('186 between it(A2) and it(A3)');
-    // A3
+                                                                           console.log('before FE');
+    // FE
     it( 'make-api.js - url', function( done ) {
       var m = unique();
 
-      apiHelper( 'post', api, 200, m, function( err, res, body ) {         console.log('191 entered apiHelper');
+      apiHelper( 'post', api, 200, m, function( err, res, body ) {         console.log('FE-D');
         var make = MakeAPI({ apiURL: hostNoAuth });
 
         console.log("body", body);
@@ -204,11 +207,12 @@ var assert = require( 'assert' ),
         });
       });
     });
-                                                                            console.log('207 between it(A3) and it(A4)');
-  // for POSTed call parameters
+                                                                            console.log('before FF');
+  // for POSTed call parameters FF
 
     it('should error if call parameters are erroneously present', function(done){
-      
+      var retval = 2+2;
+      assert.equal(retval, 4);
       done();
     });
     
@@ -216,6 +220,7 @@ var assert = require( 'assert' ),
   // POSTed expected info
 
     it ('should error if mimimum fields are not passed', function(done){
+
       done();
     });
     
@@ -400,9 +405,9 @@ var assert = require( 'assert' ),
       done();
     });
   });
-  // for PUTed data
+  // for PUTed data G
   
-  describe('PUT /api/make/:id', function(){    console.log('in describe("PUT /api/make/id")');
+  describe('PUT /api/make/:id', function(){    console.log('G');
 
     // call parameter is id:
     
@@ -460,8 +465,8 @@ var assert = require( 'assert' ),
       
   }); // end of describe()
   
-  // for data in DELETE req 
-  describe('DELETE /api/make/:id', function(){                      console.log('in describe(DELETE /api/make/id)');
+  // for data in DELETE req - H
+  describe('DELETE /api/make/:id', function(){                      console.log('H');
 
     // call parameter 
 
@@ -537,17 +542,18 @@ var assert = require( 'assert' ),
        done();   
     }); // end of illegalChars.forEach()
 
-  }); console.log('end of file');
+  }); 
 
-console.log('.....................................................');
+/*console.log('.....................................................');
 
 // define our function with the callback argument
 function alpha(x, y, callback) {
-  var number = x + y;                                            console.log('my_number .......... '+ number);
+  var number = x + y;                                            console.log('546 my_number .......... '+ number);
   callback(number);
 }
 // call the function
-alpha(2, 3, function(num) { console.log("callback called! " + num); });   // this anonymous function will run when the
+alpha(2, 3, function(num) { console.log("550 callback called! " + num); });   // this anonymous function will run when the
   // callback is called
 console.log('.....................................................');
-
+*/
+console.log('end of file');

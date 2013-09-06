@@ -40,28 +40,40 @@ var assert = require( 'assert' ),
         method: 'post',
         json: user
       }, function( err, res, body ) {                     console.log('AA callback');
-        assert.ok( !err );                                if (err) console.log("AA err"); else console.log("AA no err"); console.log('AA res.statusCode .......... '+ res.statusCode);
+        assert.ok( !err );                                if (err) console.log("AA err"); else console.log("AA no err"); console.log('AA res.statusCode .'+ res.statusCode);
         assert.equal( res.statusCode, 200 );
         callback();
-      });                                                 //console.log('AA res .......... '+ res);
+      });                                                 //console.log('AA res .......... '+ res + 'url ...... '+ url);
     }  // createUser()                                                  
-                                                          if (request) console.log('before AB, request is true'); 
+                                                          if (request) console.log('before AB...........request is true'); 
     loginChild = fork( 'login.webmaker.org/app.js', [], { env: { // the 3rd par is the environment key-value pairs
-      PORT: loginPort,
-      HOSTNAME: "http://localhost",
-      MONGO_URL: "mongodb://localhost:27017/local_webmakers",
-      SESSION_SECRET: "I sometimes feed lunch meat to my neighbour's \"vegan\" dog.",
+      ALLOW_SEND_WELCOME_EMAIL: false,
+      ALLOWED_DOMAINS: "http://localhost:3000 http://localhost:3500 http://localhost:7777 http://localhost:8888 http://localhost:12416",
       ALLOWED_USERS: "testuser:password",
-      ALLOWED_DOMAINS: "http://localhost:3000 http://localhost:3001"
+      AUDIENCE: "http://localhost:7777",
+      DB_DATABASE: "local_webmakers",
+      DBOPTIONS_DIALECT: "sqlite",
+      DBOPTIONS_LOGGING: false,
+      DBOPTIONS_STORAGE: "loginusers.sqlite",
+      ELASTIC_SEARCH_URL:'http://localhost:9200',
+      FORCE_SSL: false,
+      HOSTNAME: "http://localhost:3000",
+      LOG_LEVEL: "debug",
+      LOGIN: "http://localhost:3000",
+      LOGINAPI: "http://testuser:password@localhost:3000",
+      NODE_ENV: "development",
+      PORT: loginPort,
+      SESSION_SECRET: "I sometimes feed lunch meat to my neighbour's \"vegan\" dog."
     }});
-                                                         console.log('before AC .......... '+ loginChild); //JSON.stringify(loginChild);  
-    loginChild.on( "message", function( msg ) {          console.log('AC msg .......... '+ msg);    // like 'onclick': loginChild listens for the 'event' message
-      if( msg === "Started" ) {                          console.log('AC admin .......... '+ admin);
+                                                            console.log('before AC loginChild.........'+ loginChild); //JSON.stringify(loginChild);  
+    loginChild.on( "message", function( msg ) {             console.log('AC msg ......................'+ msg);    // like 'onclick': loginChild listens for the 'event' message
+      if( msg === "sqlStarted" ) {                          //console.log('AC admin .......... '+ admin);
         // Create a few logins
-        createUser( admin, function() {                  console.log('AC createUser()');
-          createUser( notAdmin, done );                  console.log("AC created 2 users");
-        });                                              //console.log('AC in if()');
-      }                                                  //console.log('AC exited if()');
+        done();//-------------------------------------------------------------------------------------------- This code can't be used repeatedly
+        // createUser( admin, function() {                     console.log('AC createUser()'); //             because it creates 2 at the 1st run
+        //   createUser( notAdmin, done );                     console.log("AC created 2 users");//           and causes an error when run again               
+        // });                                                 //console.log('AC in if()');
+      } //---------------------------------                    //console.log('AC exited if()');
     }); // loginChild.on()
   } // startLoginServer()
                          
@@ -70,9 +82,21 @@ var assert = require( 'assert' ),
   function startServer( done ) {                            console.log('B');
     startLoginServer( function() {                          console.log('BA');   
       // Spin-up the MakeAPI server as a child process
-      child = fork( 'server.js', null, {} );                console.log('BA child .......... '+ child);
-      child.on( 'message', function( msg ) {                console.log('BA msg .......... '+ msg);
-        if ( msg === 'Started' ) {
+      child = fork( '../server', null, { env: {
+        ALLOWED_USERS: 'testuser:password',
+        AUDIENCE: "http://localhost:7777",
+        ELASTIC_SEARCH_URL: 'http://localhost:9200',
+        FORCE_SSL: false,
+        LOGIN_SERVER_URL_WITH_AUTH: 'http://loginuser:loginpassword@localhost:3000',
+        LOGIN_SERVER: 'http://localhost:3000',
+        MONGO_URL: 'mongodb://localhost/makeapi',
+        NODE_ENV: 'development',
+        PORT: 5000,
+        SESSION_SECRET: 'I wish the people who clean my office at night were invited to our company Christmas party.',
+        USE_LAZY_ADMIN: false
+      }} );                                                 console.log('BA child [MakeAPI]............ '+ child);
+      child.on( 'message', function( msg ) {                console.log('BA msg 1...................... ' + msg); // where does the msg value come from? from child.on()
+        if ( msg === 'sqlStarted' ) {                       console.log('BA msg 2...................... ' + msg);
           done();
         }
       });
@@ -88,10 +112,10 @@ var assert = require( 'assert' ),
   /**
    * Api functions
    */
-                                                              console.log('before D');
-   function apiHelper( verb, uri, httpCode, data, callback, assertions ) {    console.log('89 D');
+                                                                              console.log('before D');
+   function apiHelper( verb, uri, httpCode, data, callback, assertions ) {    console.log('D uri........................' + uri);
     // Parameter handling
-    if ( typeof( data ) === "function" ) {                    console.log('D data .......... '+ data);
+    if ( typeof( data ) === "function" ) {                                    console.log('D data ......................'+ data);
       callback = data;
       data = {};
     } else {
@@ -146,8 +170,8 @@ var assert = require( 'assert' ),
    // F
   describe( 'POST /api/make (create)', function() {
                                                            console.log('F');
-    var api = hostAuth + '/api/make';                      console.log('before FA hostAuth .......... '+ hostAuth); console.log('before FA api .......... '+ api);
-
+    var api = hostAuth + '/api/make';                      console.log('before FA hostAuth ..... '+ hostAuth); 
+                                                           console.log('before FA api .......... '+ api);
     before( function( done ) {                             console.log('FA');
       startServer( done );      
     });                                                    console.log('before FB');

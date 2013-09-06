@@ -37,7 +37,7 @@ app.disable( "x-powered-by" );
 
 app.use( express.logger( env.get( "NODE_ENV" ) === "production" ? "" : "dev" ) );
 if ( !!env.get( "FORCE_SSL" ) ) {
-  app.use( helmet.hsts() );
+  app.use( helmet.hsts() ); 
   app.enable( "trust proxy" );
 }
 app.use( express.compress() );
